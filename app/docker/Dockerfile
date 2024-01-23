@@ -9,7 +9,7 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
@@ -17,6 +17,6 @@ RUN apt-get -y update --fix-missing
 RUN apt-get -y install apt-utils
 RUN apt-get -y upgrade
 
-RUN apt-get install -y kmod make gcc wget apt-transport-https curl
-RUN apt-get install -y rpm2cpio cpio fuse file
+RUN apt-get install -y kmod make gcc unzip wget apt-transport-https curl
+RUN apt-get install -y rpm2cpio cpio fuse file 
 

@@ -16,12 +16,17 @@ PWD:=$(shell pwd)
 all: clean init
 
 	mkdir --parents $(PWD)/build/Mpv.AppDir
-	$(PWD)/bin/Apprepo.AppImage  --destination=$(PWD)/build appdir mpv \
-		libwayland-cursor0
+	$(PWD)/bin/apprepo.AppImage  --destination=$(PWD)/build appdir mpv \
+		libwayland-cursor0 libegl1
 
 	rm --force $(PWD)/build/Mpv.AppDir/*.desktop 				| true
 	rm --force $(PWD)/build/Mpv.AppDir/*.svg 					| true
 	rm --force $(PWD)/build/Mpv.AppDir/*.png					| true
+
+	rm --force $(PWD)/build/Mpv.AppDir/lib64/libEGL_mesa.so.*  || true
+	rm --force $(PWD)/build/Mpv.AppDir/lib64/libEGL.so.*       || true
+	rm --force $(PWD)/build/Mpv.AppDir/lib64/libglapi.so.*     || true
+
 
 	cp --force $(PWD)/AppDir/*.desktop $(PWD)/build/Mpv.AppDir/	| true
 	cp --force $(PWD)/AppDir/*.png $(PWD)/build/Mpv.AppDir/ 	| true
@@ -34,9 +39,9 @@ all: clean init
 init:
 	mkdir --parents $(PWD)/bin
 
-	wget https://apprepo.de/appimage/download/apprepo \
-		--output-document=$(PWD)/bin/Apprepo.AppImage
-	chmod +x $(PWD)/bin/Apprepo.AppImage
+	wget https://github.com/area-of-dev/apprepo.AppImage/releases/download/latest/apprepo.AppImage \
+		--output-document=$(PWD)/bin/apprepo.AppImage
+	chmod +x $(PWD)/bin/apprepo.AppImage
 
 	wget https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage \
 		--output-document=$(PWD)/bin/appimagetool.AppImage
